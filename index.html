@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Philipps Portfolio</title>
+    <meta name="description" content="Interaktive Portfolio-Website mit coolem Vibe für Philipp. Entdecke innovative Web-Lösungen und kreative Projekte, die begeistern.">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text x=%2250%%22 y=%2250%%22 style=%22dominant-baseline:central;text-anchor:middle;font-size:90px;fill:%2300d4ff;font-family:sans-serif;%22>P</text></svg>">
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <!-- Font Awesome 6 CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2BFx/BW9t/WR/wdtKBLRFLiAVBTsfaSyGE1iQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Google Fonts - Poppins (optional, if CDN for font is desired, else browser default) -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-bg: #1a1a2e; /* Dark background */
+            --secondary-bg: #16213e; /* Slightly lighter dark for sections/cards */
+            --text-color: #e0e0e0; /* Light grey text */
+            --heading-color: #ffffff; /* White headings */
+            --accent-color: #00d4ff; /* Main accent */
+            --accent-darker: #00aacc; /* Darker accent on hover */
+            --border-color: #2e3b5e; /* Subtle border */
+            --font-family: 'Poppins', sans-serif;
+            --hover-transition: all 0.3s ease-in-out;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background-color: var(--primary-bg);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden; /* Prevent horizontal scroll from animations */
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            color: var(--heading-color);
+            font-weight: 700;
+        }
+
+        a {
+            color: var(--accent-color);
+            text-decoration: none;
+        }
+        a:hover {
+            color: var(--accent-darker);
+            text-decoration: underline;
+        }
+
+        .btn-primary-accent {
+            background-color: var(--accent-color);
+            border-color: var(--accent-color);
+            color: var(--primary-bg);
+            font-weight: 600;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            transition: var(--hover-transition);
+        }
+        .btn-primary-accent:hover {
+            background-color: var(--accent-darker);
+            border-color: var(--accent-darker);
+            color: var(--primary-bg);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 212, 255, 0.4);
+        }
+
+        .text-accent {
+            color: var(--accent-color) !important;
+        }
+
+        .section-padding {
+            padding: 80px 0;
+        }
+        @media (max-width: 768px) {
+            .section-padding {
+                padding: 60px 0;
+            }
+        }
+
+        .bg-darker {
+            background-color: var(--secondary-bg);
+        }
+
+        /* Navbar */
+        .navbar {
+            background-color: var(--secondary-bg);
+            border-bottom: 1px solid var(--border-color);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+        .navbar-brand {
+            color: var(--heading-color) !important;
+            font-weight: 700;
+            font-size: 1.8rem;
+            letter-spacing: 1px;
+            transition: var(--hover-transition);
+        }
+        .navbar-brand:hover {
+            color: var(--accent-color) !important;
+        }
+        .navbar-nav .nav-link {
+            color: var(--text-color);
+            font-weight: 500;
+            margin: 0 15px;
+            position: relative;
+            transition: var(--hover-transition);
+        }
+        .navbar-nav .nav-link:hover,
+        .navbar-nav .nav-link.active {
+            color: var(--accent-color);
+        }
+        .navbar-nav .nav-link::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -5px;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent-color);
+            transition: var(--hover-transition);
+        }
+        .navbar-nav .nav-link:hover::after,
+        .navbar-nav .nav-link.active::after {
+            width: 100%;
+        }
+        .navbar-toggler {
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+        .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='%2300d4ff' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+        }
+
+
+        /* Hero Section */
+        #hero {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: linear-gradient(rgba(26, 26, 46, 0.8), rgba(26, 26, 46, 0.8)), url('https://images.unsplash.com/photo-1542831371-d3450378170b?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') no-repeat center center; /* Code background from Unsplash */
+            background-size: cover;
+            overflow: hidden;
+            z-index: 1;
+        }
+        #hero .hero-content {
+            color: var(--heading-color);
+            max-width: 900px;
+            padding: 20px;
+            animation: fadeIn 1.5s ease-out;
+        }
+        #hero .hero-content h1 {
+            font-size: 4.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            animation: slideInUp 1s ease-out 0.5s forwards;
+            opacity: 0;
+        }
+        #hero .hero-content p {
+            font-size: 1.6rem;
+            margin-bottom: 40px;
+            animation: slideInUp 1s ease-out 0.8s forwards;
+            opacity: 0;
+        }
+        #hero .hero-content .btn {
+            animation: zoomIn 0.8s ease-out 1.2s forwards;
+            opacity: 0;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes slideInUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        @keyframes zoomIn {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        @media (max-width: 992px) {
+            #hero .hero-content h1 {
+                font-size: 3.5rem;
+            }
+            #hero .hero-content p {
+                font-size: 1.4rem;
+            }
+        }
+        @media (max-width: 768px) {
+            #hero .hero-content h1 {
+                font-size: 3rem;
+            }
+            #hero .hero-content p {
+                font-size: 1.2rem;
+            }
+        }
+        @media (max-width: 576px) {
+            #hero .hero-content h1 {
+                font-size: 2.5rem;
+            }
+            #hero .hero-content p {
+                font-size: 1rem;
+            }
+        }
+
+        /* Features/Services */
+        .service-card {
+            background-color: var(--secondary-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            transition: var(--hover-transition);
+            margin-bottom: 25px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            height: 100%; /* Ensure cards have equal height */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .service-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.2);
+            border-color: var(--accent-color);
+        }
+        .service-card .icon {
+            font-size: 3rem;
+            color: var(--accent-color);
+            margin-bottom: 20px;
+            transition: var(--hover-transition);
+        }
+        .service-card:hover .icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+        .service-card h3 {
+            font-size: 1.7rem;
+            margin-bottom: 15px;
+        }
+        .service-card p {
+            font-size: 1rem;
+            color: var(--text-color);
+        }
+
+        /* About Section */
+        #about img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: var(--hover-transition);
+        }
+        #about img:hover {
+            transform: scale(1.02);
+            box-shadow: 0 15px 40px rgba(0, 212, 255, 0.3);
+        }
+        #about h2 {
+            margin-bottom: 25px;
+        }
+
+        /* Contact Section */
+        #contact .form-control {
+            background-color: var(--secondary-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            padding: 1rem;
+            border-radius: 8px;
+            transition: var(--hover-transition);
+        }
+        #contact .form-control::placeholder {
+            color: #888;
+        }
+        #contact .form-control:focus {
+            background-color: var(--secondary-bg);
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 0.25rem rgba(0, 212, 255, 0.25);
+            color: var(--text-color);
+        }
+        #contact .social-links a {
+            font-size: 1.8rem;
+            color: var(--text-color);
+            margin: 0 10px;
+            transition: var(--hover-transition);
+        }
+        #contact .social-links a:hover {
+            color: var(--accent-color);
+            transform: translateY(-3px);
+        }
+        #contact form.bg-darker {
+            background-color: var(--secondary-bg);
+        }
+
+
+        /* Footer */
+        footer {
+            background-color: var(--secondary-bg);
+            border-top: 1px solid var(--border-color);
+            padding: 30px 0;
+            color: var(--text-color);
+            font-size: 0.9rem;
+        }
+        footer p {
+            margin-bottom: 0;
+        }
+
+        /* Scroll to top button */
+        .scroll-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--accent-color);
+            color: var(--primary-bg);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+            transition: var(--hover-transition);
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            text-decoration: none;
+        }
+        .scroll-to-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        .scroll-to-top:hover {
+            background-color: var(--accent-darker);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 212, 255, 0.4);
+        }
+
+        /* General animations for section headers */
+        .section-header h2 {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 40px;
+            padding-bottom: 10px;
+            font-size: 2.8rem;
+        }
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: 0;
+            width: 60px;
+            height: 4px;
+            background-color: var(--accent-color);
+            border-radius: 2px;
+        }
+        .section-header p.lead {
+            color: var(--text-color);
+            font-size: 1.2rem;
+        }
+        @media (max-width: 768px) {
+            .section-header h2 {
+                font-size: 2.2rem;
+            }
+            .section-header p.lead {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#hero">Philipp</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#hero">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#services">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">Über Mich</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Kontakt</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="d-flex align-items-center justify-content-center text-center">
+        <div class="hero-content">
+            <p class="text-accent fs-4 mb-3">Hi, mein Name ist</p>
+            <h1>Philipp</h1>
+            <p class="lead">Dein Partner für <span class="text-accent">innovative Web-Lösungen</span> und digitale Transformation.</p>
+            <a href="#services" class="btn btn-primary-accent btn-lg">Meine Services entdecken <i class="fas fa-arrow-right ms-2"></i></a>
+        </div>
+    </section>
+
+    <!-- Features/Services Section -->
+    <section id="services" class="section-padding">
+        <div class="container">
+            <div class="row text-center mb-5">
+                <div class="col-12 section-header">
+                    <h2>Meine <span class="text-accent">Services</span></h2>
+                    <p class="lead">Biete maßgeschneiderte Lösungen für Dein Business.</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-lg-4 d-flex">
+                    <div class="service-card">
+                        <div class="icon"><i class="fas fa-laptop-code"></i></div>
+                        <h3>Webentwicklung</h3>
+                        <p>Moderne, responsive Websites und Webanwendungen mit Fokus auf Performance und Benutzerfreundlichkeit.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 d-flex">
+                    <div class="service-card">
+                        <div class="icon"><i class="fas fa-palette"></i></div>
+                        <h3>UI/UX Design</h3>
+                        <p>Intuitive und ästhetisch ansprechende Benutzeroberflächen, die begeistern und konvertieren.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 d-flex">
+                    <div class="service-card">
+                        <div class="icon"><i class="fas fa-mobile-alt"></i></div>
+                        <h3>Mobile Entwicklung</h3>
+                        <p>Cross-Plattform- und native mobile Apps, die auf allen Geräten einwandfrei funktionieren.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 d-flex">
+                    <div class="service-card">
+                        <div class="icon"><i class="fas fa-database"></i></div>
+                        <h3>Backend & APIs</h3>
+                        <p>Robuste und skalierbare Backend-Systeme sowie RESTful APIs für nahtlose Datenintegration.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 d-flex">
+                    <div class="service-card">
+                        <div class="icon"><i class="fas fa-cloud"></i></div>
+                        <h3>Cloud-Lösungen</h3>
+                        <p>Beratung und Implementierung von Cloud-Infrastrukturen (AWS, Azure, Google Cloud) für maximale Effizienz.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 d-flex">
+                    <div class="service-card">
+                        <div class="icon"><i class="fas fa-headset"></i></div>
+                        <h3>Technischer Support</h3>
+                        <p>Zuverlässiger Support und Wartung, um Deine digitalen Produkte reibungslos am Laufen zu halten.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section-padding bg-darker">
+        <div class="container">
+            <div class="row text-center mb-5">
+                <div class="col-12 section-header">
+                    <h2>Über <span class="text-accent">Mich</span></h2>
+                    <p class="lead">Lerne den Kopf hinter den Codes kennen.</p>
+                </div>
+            </div>
+            <div class="row align-items-center">
+                <div class="col-lg-6 mb-4 mb-lg-0">
+                    <img src="https://images.unsplash.com/photo-1549692520-acc666928e0c?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Philipp" class="img-fluid rounded shadow-lg">
+                </div>
+                <div class="col-lg-6">
+                    <h3>Hallo, ich bin Philipp – dein engagierter Web-Developer!</h3>
+                    <p class="mt-4">
+                        Mit einer Leidenschaft für sauberen Code und innovative Lösungen helfe ich Unternehmen und Privatpersonen, ihre digitale Präsenz zu gestalten und zu optimieren. Mein Ziel ist es, nicht nur funktionale, sondern auch beeindruckende und zukunftssichere Websites und Anwendungen zu entwickeln.
+                    </p>
+                    <p>
+                        Mein Fokus liegt auf einer engen Zusammenarbeit mit meinen Kunden, um deren Visionen in die Realität umzusetzen. Von der Konzeption bis zur Implementierung lege ich Wert auf Transparenz, Effizienz und höchste Qualität. Ich liebe es, neue Technologien zu erforschen und mein Wissen stets aktuell zu halten, um die besten Ergebnisse zu liefern.
+                    </p>
+                    <p>
+                        Lass uns gemeinsam an Deinem nächsten Projekt arbeiten und digitale Erlebnisse schaffen, die begeistern!
+                    </p>
+                    <a href="#contact" class="btn btn-primary-accent mt-3">Kontakt aufnehmen <i class="fas fa-envelope ms-2"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section-padding">
+        <div class="container">
+            <div class="row text-center mb-5">
+                <div class="col-12 section-header">
+                    <h2><span class="text-accent">Kontakt</span></h2>
+                    <p class="lead">Bereit, Dein nächstes Projekt zu starten? Schreib mir!</p>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <form class="p-4 p-md-5 rounded shadow bg-darker">
+                        <div class="mb-3">
+                            <label for="name" class="form-label visually-hidden">Name</label>
+                            <input type="text" class="form-control" id="name" placeholder="Dein Name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label visually-hidden">E-Mail</label>
+                            <input type="email" class="form-control" id="email" placeholder="Deine E-Mail Adresse" required>
+                        </div>
+                        <div class="mb-4">
+                            <label for="message" class="form-label visually-hidden">Nachricht</label>
+                            <textarea class="form-control" id="message" rows="5" placeholder="Deine Nachricht" required></textarea>
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary-accent btn-lg">Nachricht senden <i class="fas fa-paper-plane ms-2"></i></button>
+                        </div>
+                    </form>
+                    <div class="text-center mt-5">
+                        <p class="mb-3">Oder finde mich hier:</p>
+                        <div class="social-links">
+                            <a href="https://www.linkedin.com/in/philipp" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                            <a href="https://github.com/philipp" target="_blank" aria-label="GitHub"><i class="fab fa-github-square"></i></a>
+                            <a href="https://twitter.com/philipp" target="_blank" aria-label="Twitter"><i class="fab fa-twitter-square"></i></a>
+                            <a href="https://dribbble.com/philipp" target="_blank" aria-label="Dribbble"><i class="fab fa-dribbble-square"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="text-center">
+        <div class="container">
+            <p>&copy; 2024 Philipps Portfolio. Alle Rechte vorbehalten.</p>
+            <p>Made with <i class="fas fa-heart text-danger"></i> by JARVIS</p>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <a href="#hero" class="scroll-to-top" aria-label="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Smooth scrolling for navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    const navbarOffset = document.querySelector('.navbar').offsetHeight || 0; // Get navbar height for offset, default to 0 if not found
+
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - navbarOffset,
+                            behavior: 'smooth'
+                        });
+
+                        // Close navbar on mobile after click
+                        const navbarToggler = document.querySelector('.navbar-toggler');
+                        const navbarCollapse = document.querySelector('.navbar-collapse');
+                        if (navbarToggler && navbarCollapse && navbarCollapse.classList.contains('show')) {
+                            navbarToggler.click(); // Simulate click to close the expanded navbar
+                        }
+                    }
+                });
+            });
+
+            // Active link highlighting on scroll
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.navbar-nav .nav-link');
+            const navbarHeight = document.querySelector('.navbar').offsetHeight || 0;
+
+            const highlightNavLink = () => {
+                let current = '';
+                sections.forEach(section => {
+                    // Adjusted sectionTop to account for fixed navbar
+                    const sectionTop = section.offsetTop - navbarHeight - 10; // Add a small buffer
+                    const sectionBottom = sectionTop + section.offsetHeight;
+                    if (window.scrollY >= sectionTop && window.scrollY < sectionBottom) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href').includes(current)) {
+                        link.classList.add('active');
+                    }
+                });
+            };
+
+            window.addEventListener('scroll', highlightNavLink);
+            highlightNavLink(); // Call on load to set initial active link
+
+            // Scroll to top button functionality
+            const scrollToTopBtn = document.querySelector('.scroll-to-top');
+
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 300) { // Show button after scrolling 300px
+                    scrollToTopBtn.classList.add('show');
+                } else {
+                    scrollToTopBtn.classList.remove('show');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
